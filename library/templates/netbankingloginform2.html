@@ -1,0 +1,35 @@
+{% extends 'master.html' %}
+
+{% block 'main' %}
+<div style="text-align: center;">
+
+    <h1 class="mt-5 mb-3 formheading">
+        NETBANKING LOGIN
+    </h1>
+
+    <div>
+        {% if err %}
+        <div class="col-md-12 text-danger errordiv">
+            {{err}}
+        </div>
+        {% endif %}
+    </div>
+
+    <form action="/transaction-details-2" method="post" class="bookform mt-5 col-md-5">
+        {% csrf_token %}
+        {% for fields in form %}
+        <div>
+            {{fields.label_tag}}
+        </div>
+        <div>
+            {{fields}}
+        </div>
+        {% endfor %}
+        <input type="submit" value="Login" class="btn btn-primary mb-3 mt-3 col-md-2 bookshelfbutton">
+        <a href="/netbanking-register-form" class="btn btn-primary mt-3 mb-3 col-md-3 userloginbtn bookshelfbutton">Create Account</a>
+    </form>
+
+</div>
+
+
+{% endblock 'main' %}

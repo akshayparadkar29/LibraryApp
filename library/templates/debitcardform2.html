@@ -1,0 +1,61 @@
+{% extends 'master.html' %}
+
+{% block 'main' %}
+<div style="text-align: center;">
+
+    <h1 class="mt-5 mb-3 formheading">
+        ENTER DEBIT CARD DETAILS
+    </h1>
+
+    <h3 class="mt-5 mb-3 formheading">
+        <p>Total : {{n}}</p>
+    </h3>
+
+    <div>
+        {% if err %}
+        <div class="col-md-12 text-danger errordiv">
+            {{err}}
+        </div>
+        {% endif %}
+    </div>
+
+    <form action="/payment-2" method="post" class="bookform mt-5 col-md-5">
+        {% csrf_token %}
+        {% for fields in form %}
+        <div>
+            {{fields.label_tag}}
+        </div>
+        <div>
+            {{fields}}
+        </div>
+        {% endfor %}
+        <input type="submit" value="Proceed" class="btn btn-primary mb-3 mt-3 col-md-2 bookshelfbutton">
+        <a href="/" class="btn btn-primary bookshelfbutton">Back</a>
+    </form>
+
+    <div class="container col-md-8" style="overflow-x: auto;">
+
+        <h1 class="mt-5 mb-3 formheading">
+            BOOK DETAILS
+        </h1>
+
+        <table class="table table-hover table-striped table-responsive-lg mt-5 mb-3 table-light booklist">
+            <tr class="table-secondary" scope="row">
+                <th scope="col" style="padding: 20px;">Title</th>
+                <th scope="col" style="padding: 20px;">Author</th>
+                <th scope="col" style="padding: 20px;">Small-Description</th>
+                <th scope="col" style="padding: 20px;">Price</th>
+            </tr>
+            {% for records in data %}
+            <tr scope="row">
+                <td class="table-info">{{records.title}}</td>
+                <td class="table-info">{{records.author}}</td>
+                <td class="table-info">{{records.sdesc}}</td>
+                <td class="table-info">{{records.price}}</td>
+            </tr>
+            {% endfor %}
+    </div>
+
+</div>
+
+{% endblock 'main' %}

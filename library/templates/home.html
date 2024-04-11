@@ -1,0 +1,174 @@
+{% extends 'master.html' %}
+
+  {% block 'main' %}
+
+  <div class="col-md-12">
+    
+      <h1 class="mt-5 formheading">
+          AVAILABLE BOOKS IN LIBRARY
+      </h1>
+      <hr>
+
+      <div class="container col-md-9" style="overflow-x: auto;">
+
+          <table class="table table-hover table-striped table-responsive-lg mt-5 mb-3 table-light booklist">
+              <tr class="table-secondary" scope="row">
+                <th scope="col" style="padding: 20px;">Title</th>
+                <th scope="col" style="padding: 20px;">Author</th>
+                <th scope="col" style="padding: 20px;">Small-Description</th>
+                <th scope="col" style="padding: 20px;">Price</th>
+                <th class="table-dark" scope="col"></th>
+            </tr>
+              {% for records in data %}
+              <tr scope="row">
+                  <td class="table-info">{{records.title}}</td>
+                  <td class="table-info">{{records.author}}</td>
+                  <td class="table-info">{{records.sdesc}}</td>
+                  <td class="table-info">{{records.price}}</td>
+                  <!--if book added to cart-->
+                  {% if records.cart == 1 %}
+                    <!--if current logged-in user added this book-->
+                    {% if records.uid == user.id %}
+                    <td class="btn-group">
+                      <a href="/book-buy/{{records.id}}/{{user.id}}" class="btn btn-success buybtn disabled">Buy</a>
+                      <a href="/book-borrow/{{records.id}}/{{user.id}}" class="btn btn-info borrowbtn disabled">Borrow</a>
+                      <a href="#" class="btn btn-secondary atc disabled">Added To Cart</a>
+                    </td>
+                    <!--if another user logged-in-->
+                    {% elif records.uid != user.id %} 
+                      <!--if user is logged-in show add-to-cart disabled button-->
+                      {% if user.is_authenticated %} 
+                      <td class="btn-group">
+                        <a href="/book-buy/{{records.id}}/{{user.id}}" class="btn btn-success buybtn disabled">Buy</a>
+                        <a href="/book-borrow/{{records.id}}/{{user.id}}" class="btn btn-info borrowbtn disabled">Borrow</a>
+                        <a href="/add-to-cart/{{records.id}}/{{user.id}}" class="btn btn-warning atc disabled">Add To Cart</a>
+                      </td>
+                      <!--if user is logged-out hide add-to-cart disabled button-->
+                      {% elif user.is_anonymous %} 
+                      <td class="btn-group">
+                        <a href="/book-buy/{{records.id}}/{{user.id}}" class="btn btn-success buybtn disabled">Buy</a>
+                        <a href="/book-borrow/{{records.id}}/{{user.id}}" class="btn btn-info borrowbtn disabled">Borrow</a>
+                      </td> 
+                      {% endif %}                
+                    {% endif %}
+                  <!--if books are borrowed by user-->
+                  {% elif records.borrow == 1 %}
+                  <td class="btn-group">
+                    <a href="/book-buy/{{records.id}}/{{user.id}}" class="btn btn-success buybtn disabled">Buy</a>
+                    <a href="#" class="btn btn-secondary borrowedbtn disabled">Borrowed</a>
+                    <a href="/add-to-cart/{{records.id}}/{{user.id}}" class="btn btn-warning atc disabled">Add To Cart</a>    
+                  </td>
+                  <!--if books are not borrowed by user-->
+                  {% elif records.borrow == 0 %}
+                    <!--if user is not logged-in-->
+                    {% if user.is_anonymous %}
+                    <td class="btn-group">
+                        <!--on clicking buy button show modal-->
+                        <button class="btn btn-success buybtn" 
+                        data-bs-toggle="modal" data-bs-target="#myModal">Buy</button>
+                        <!--on clicking borrow button show modal-->
+                        <button class="btn btn-info borrowbtn" 
+                        data-bs-toggle="modal" data-bs-target="#myModal">Borrow</button>
+                    </td>
+                    <!--if user is logged-in-->
+                    {% elif user.is_authenticated %}
+                      <!--if book purchased by current logged-in user-->
+                      {% if records.purchase == 1 and records.uid == user.id %}
+                      <td>
+                        <a href="#" class="btn btn-secondary disabled purchasedbtn">Purchased</a>
+                      </td>
+                      <!--if book is not purchased by current logged-in user-->
+                      {% elif records.purchase == 1 and records.uid != user.id %}
+                      <td>
+                          <a href="#" class="btn btn-danger disabled unavailablebtn">Unavailable</a>
+                      </td>
+                      <!--if book are not purchased-->
+                      {% else %}
+                      <td class="btn-group">
+                        <a href="/book-buy/{{records.id}}/{{user.id}}" class="btn btn-success buybtn">Buy</a>
+                        <a href="/book-borrow/{{records.id}}/{{user.id}}" class="btn btn-info borrowbtn">Borrow</a>
+                        <a href="/add-to-cart/{{records.id}}/{{user.id}}" class="btn btn-warning atc">Add To Cart</a>
+                      </td>
+                      {% endif %}
+                    {% endif %}          
+                  {% endif %}
+              </tr>
+              {% endfor %}
+          </table>
+          <!--if user is logged-in-->
+          {% if user.is_authenticated %}
+          <span class="btn-group tablebtns">
+            <!--if more than one book exist-->
+            {% if record_count > 1 %}
+            <!--if all books are purchased-->
+              {% if is_purchase == length %}
+              <a href="/borrow-all-books" class="btn btn-primary bookshelfbtn bookshelfbutton disabled">Borrow (All Books)</a>
+              <a href="/allbooks-to-cart" class="btn btn-primary bookshelfbtn bookshelfbutton disabled">Add To Cart (All Books)</a>
+              {% elif is_borrow == length %}
+              <a href="/borrow-all-books" class="btn btn-primary bookshelfbtn bookshelfbutton disabled">Borrow (All Books)</a>
+              <a href="/allbooks-to-cart" class="btn btn-primary bookshelfbtn bookshelfbutton disabled">Add To Cart (All Books)</a>
+              {% else %}
+              <a href="/borrow-all-books" class="btn btn-primary bookshelfbtn bookshelfbutton">Borrow (All Books)</a>
+              <a href="/allbooks-to-cart" class="btn btn-primary bookshelfbtn bookshelfbutton">Add To Cart (All Books)</a>
+              {% endif %}
+            {% endif %}
+            <!--show button to go to user-dashboard-->
+            <a href="/user-dashboard" class="btn btn-primary bookshelfbtn bookshelfbutton">Dashboard -></a>
+          </span>
+          {% endif %}
+      </div>
+      <div class="container filter-div">
+        <span class="d-flex" style="margin: 0px 0px 0px 10px;">
+          <!--Filter By Author-->
+          <div class="col-md-3 mt-5">
+            <h4>Filter By Author</h4>
+            <hr>
+            {% for x in data2 %}
+            <a href="/filter-by-author/{{x.author}}">{{x.author}}</a><br>
+            {% endfor %}
+            <a href="/">All</a>
+          </div>
+          <!--Filter By Price-->
+          <div class="col-md-3 mt-5">
+            <h4>Filter By Price</h4>
+            <hr>
+            {% for x in data2 %}
+            <a href='/filter-by-price/{{x.price}}'>Below {{x.price}}</a><br>
+            {% endfor %}
+            <a href="/">All</a>
+          </div>
+          <!--Sort By Order-->
+          <div class="col-md-3 mt-5">
+            <h4>Sort By Order</h4>
+            <hr>
+            <a href='/ascending'>Ascending</a><br>
+            <a href='/descending'>Descending</a>
+          </div>
+        </span>
+      </div>
+      <!--if user is not logged-in
+      on clicking buy / borrow button show this modal-->
+      <!--MODAL 1-->
+      <div class="modal fade modal-sm" tabindex="-1" id="myModal">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <!--if user is logged-in-->
+              <!--modal 1-->
+              {% if user.is_anonymous %}
+              <div class="modal-header">
+                <h5 class="modal-title">Register OR Login First</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <a href="/register-user" class="newuser"><h5>New User ?</h5></a>
+                <a href="/user-login" class="newuser"><h5>Already A User ?</h5></a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+      </div>
+  </div>
+
+  {% endblock 'main' %}
+
+  {% include 'footer.html' %}

@@ -1,0 +1,41 @@
+{% extends 'master.html' %}
+
+{% block 'main' %}
+
+<div style="text-align: center;">
+
+    <h1 class="mt-5 mb-3 formheading">
+        UPDATE USER DETAILS
+    </h1>
+
+    <hr>
+
+    <div>
+        {% if err %}
+        <div class="col-md-12 text-danger errordiv">
+            {{err}}
+        </div>
+        {% endif %}
+    </div>
+
+    <form action="/update-profile" method="post" class="col-md-5 mb-5 bookform mt-5">
+
+        {% csrf_token %}
+    
+        {% for fields in form %}
+        <div>
+            {{fields.label_tag}}
+        </div>
+        <div style="margin-bottom: 5px;">
+            {{fields}}
+        </div>
+        {% endfor %}
+
+        <input type="submit" class="btn btn-primary mt-3 mb-3 col-md-2 bookshelfbutton" value="Update">
+        <input type="reset" class="btn btn-primary mt-3 mb-3 col-md-2 bookshelfbutton" value="Clear">
+    </form>
+</div>
+
+
+
+{% endblock 'main' %}

@@ -1,0 +1,33 @@
+{% extends 'master.html' %}
+
+{% block 'main' %}
+<div style="text-align: center;">
+
+    <h1 class="mt-5 mb-3 formheading">
+        NETBANKING REGISTRATION
+    </h1>
+
+    <div>
+        {% if err %}
+        <div class="col-md-12 text-danger errordiv">
+            {{err}}
+        </div>
+        {% endif %}
+    </div>
+
+    <form action="/netbanking-register-form" method="post" class="bookform mt-5 col-md-5">
+        {% csrf_token %}
+        {% for fields in form %}
+        <div>
+            {{fields.label_tag}}
+        </div>
+        <div>
+            {{fields}}
+        </div>
+        {% endfor %}
+        <input type="submit" value="Register" class="btn btn-primary mb-3 mt-3 col-md-2 bookshelfbutton">
+    </form>
+
+</div>
+
+{% endblock 'main' %}

@@ -1,0 +1,48 @@
+{% extends 'master.html' %}
+
+{% block 'main' %}
+
+<div style="text-align: center;" class="mt-5">
+
+    <h1 class="mt-5 mb-3 formheading">
+        SELECT PAYMENT METHOD
+    </h1>
+
+    <form action="" method="post" class="col-md-5 mb-5 bookform mt-5">
+        {% csrf_token %}
+        {% for fields in form %}
+        <div class="mb-2">
+            {{fields.label_tag}}
+        </div>
+        <div>
+            {{fields}}
+        </div>
+        <input type="submit" value="Proceed" class="btn btn-primary mt-3 mb-3 col-md-2 bookshelfbutton">
+        {% endfor %}
+    </form>
+
+    <div class="container col-md-8" style="overflow-x: auto;">
+
+        <h1 class="mt-5 mb-3 formheading">
+            BOOK DETAILS
+        </h1>
+
+        <table class="table table-hover table-striped table-responsive-lg mt-5 mb-3 table-light booklist">
+            <tr class="table-secondary" scope="row">
+                <th scope="col" style="padding: 20px;">Title</th>
+                <th scope="col" style="padding: 20px;">Author</th>
+                <th scope="col" style="padding: 20px;">Small-Description</th>
+                <th scope="col" style="padding: 20px;">Price</th>
+            </tr>
+            {% for records in data %}
+            <tr scope="row">
+                <td class="table-info">{{records.title}}</td>
+                <td class="table-info">{{records.author}}</td>
+                <td class="table-info">{{records.sdesc}}</td>
+                <td class="table-info">{{records.price}}</td>
+            </tr>
+            {% endfor %}
+    </div>
+</div>
+
+{% endblock 'main' %}
