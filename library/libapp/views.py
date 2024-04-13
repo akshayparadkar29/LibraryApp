@@ -589,9 +589,6 @@ def filter_by_author(request,authorname):
     content = {'data':record,'data2':records,'data3':allrecords}
     return render(request,'home.html',content)
 
-
-#     return render(request,'home.html',content)
-
 # FILTER BY PRICE (HOME)
 def filter_by_price(request,price):
     # to show data on table

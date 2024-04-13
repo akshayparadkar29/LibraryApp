@@ -85,9 +85,9 @@
                       <!--if book are not purchased-->
                       {% else %}
                       <td class="btn-group">
-                        <a href="/book-buy/{{records.id}}/{{user.id}}" class="btn btn-success buybtn">Buy</a>
-                        <a href="/book-borrow/{{records.id}}/{{user.id}}" class="btn btn-info borrowbtn">Borrow</a>
-                        <a href="/add-to-cart/{{records.id}}/{{user.id}}" class="btn btn-warning atc">Add To Cart</a>
+                        <a href="/book-buy/{{records.id}}/{{user.id}}" class="btn btn-success buybtn" id="buy">Buy</a>
+                        <a href="/book-borrow/{{records.id}}/{{user.id}}" class="btn btn-info borrowbtn" id="borrow">Borrow</a>
+                        <a href="/add-to-cart/{{records.id}}/{{user.id}}" class="btn btn-warning atc" id="addtocart">Add To Cart</a>
                       </td>
                       {% endif %}
                     {% endif %}          
@@ -117,6 +117,7 @@
           </span>
           {% endif %}
       </div>
+      <!--FILTERS-->
       <div class="container filter-div">
         <span class="d-flex" style="margin: 0px 0px 0px 10px;">
           <!--Filter By Author-->
