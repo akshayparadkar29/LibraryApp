@@ -2,32 +2,33 @@
 
 {% block 'main' %}
 
-<div style="text-align: center;">
-
-    <h1 class="mt-5 mb-3 formheading">
-        ADD BOOKS TO LIBRARY
-    </h1>
-    <hr>
-    {% if err %}
-    <div class="col-md-12 text-danger formheading">
-        {{err}}
+<div class="container-fluid bookregformdiv">
+    <div class="row">
+        <h1 class="mt-5 mb-3 formheading">ADD BOOKS TO LIBRARY</h1>
     </div>
-    {% endif %}
-
-    <form action="register-book" method="post" class="col-md-5 mb-5 mt-5 bookform">
-        {% csrf_token %}
-
-        {% for fields in form %}
-        <div>
-            {{fields.label_tag}}
-        </div>
-        <div>
-            {{fields}} 
-        </div>
-        {% endfor %}
-        <input type="submit" class="btn btn-primary mt-3 mb-3 col-md-2 bookshelfbutton" value="Register" style="box-shadow: 4px 4px 5px slategrey;">
-        <a href="/" class="btn btn-primary col-md-3 bookshelfbutton">Book Shelf -></a>
-    </form>
+    <div class="row errmsg">
+        {% if err %}
+        {{err}}
+        {% endif %}
+    </div>
+    <div class="row">
+        <form action="register-book" method="post" class="mb-5 mt-3 bookregform">
+            {% csrf_token %}
+    
+            {% for fields in form %}
+            <div class="container formlabel">
+                {{fields.label_tag}}
+            </div>
+            <div class="container">
+                {{fields}} 
+            </div>
+            {% endfor %}
+            <div class="container">
+                <input type="submit" class="btn btn-primary mt-3 mb-3" value="Register">
+                <input type="reset" class="btn btn-primary mt-3 mb-3" value="Clear">
+            </div>
+        </form>
+    </div>
 </div>
 
 {% endblock 'main' %}

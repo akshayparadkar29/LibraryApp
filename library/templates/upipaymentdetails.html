@@ -1,33 +1,33 @@
 {% extends 'master.html' %}
 
 {% block 'main' %}
-<div style="text-align: center;">
-
-    <h1 class="mt-5 mb-3 formheading">
-        UPI TRANSACTION DETAILS
-    </h1>
-
-    <div>
+<div class="container-fluid upitransacdetailsdiv">
+    <div class="row">
+        <h1 class="mt-5 mb-3 formheading">UPI TRANSACTION DETAILS</h1>
+    </div>
+    <div class="row">
         {% if err %}
-        <div class="col-md-12 text-danger errordiv">
-            {{err}}
-        </div>
+            <span>{{err}}</span>
         {% endif %}
     </div>
-
-    <form action="/payment" method="post" class="bookform mt-5 col-md-5">
-        {% csrf_token %}
-        {% for fields in form %}
-        <div>
-            {{fields.label_tag}}
-        </div>
-        <div>
-            {{fields}}
-        </div>
-        {% endfor %}
-        <input type="submit" value="Proceed" class="btn btn-primary mb-3 mt-3 col-md-2 bookshelfbutton">
-    </form>
-
+    <div class="row">
+        <form action="/payment" method="post" class="mt-3 upitransacdetailsform">
+            {% csrf_token %}
+            {% for fields in form %}
+            <div class="container formlabel">
+                {{fields.label_tag}}
+            </div>
+            <div class="container">
+                {{fields}}
+            </div>
+            {% endfor %}
+            <div class="container">
+                <input type="submit" value="Proceed" class="btn btn-primary mb-3 mt-3">
+                <input type="reset" value="Clear" class="btn btn-primary mb-3 mt-3">
+            </div>
+        </form>
+    </div>
+    
     <div class="container col-md-8" style="overflow-x: auto;">
 
         <h1 class="mt-5 mb-3 formheading">

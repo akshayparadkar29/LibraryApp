@@ -2,36 +2,34 @@
 
 {% block 'main' %}
 
-<div style="text-align: center;">
-
-    <h1 class="mt-5 mb-3 formheading">
-        UPDATE PROFILE PICTURE
-    </h1>
-    <hr>
-
-    {% if err %}
-    <div class="col-md-12 text-danger errordiv">
-        {{err}}
+<div class="container-fluid profilepicupdateform">
+    <div class="row">
+        <h1 class="mt-5 mb-3 formheading">UPDATE PROFILE PICTURE</h1>
     </div>
-    {% endif %}
-
-    <form action="/profile-image" enctype="multipart/form-data" method="post" class="col-md-5 mb-5 bookform mt-5">
-
-        {% csrf_token %}
-
-        {% for fields in form %}
-        <div>
-
-            {{fields.label_tag}}
-        </div>
-        <div>
-            {{fields}}
-        </div>
-        {% endfor %}
-
-        <input type="submit" class="btn btn-primary mt-3 mb-3 col-md-2 bookshelfbutton" value="Update">
-        <a href="register-user" class="btn btn-primary mt-3 mb-3 col-md-3 userloginbtn bookshelfbutton">Create Account</a>
-    </form>
+    <div class="row errmsg">
+        {% if err %}
+        <span>{{err}}</span>
+        {% endif %}
+    </div>
+    <div class="row">
+        <form action="/profile-image" enctype="multipart/form-data" method="post" class="mb-5 mt-3 profpicupdateform">
+            {% csrf_token %}
+            {% for fields in form %}
+            <div class="container formlabel">
+                {{fields.label_tag}}
+            </div>
+            <div class="container">
+                {{fields}}
+            </div>
+            {% endfor %}
+            <div class="container profilepicformbtn">
+                <input type="submit" class="btn btn-primary mt-3 mb-3" value="Update">
+                <a href="register-user" class="btn btn-primary mt-3 mb-3">Create Account</a>
+            </div>
+            
+        </form>
+    </div>
+   
 </div>
 
 {% endblock 'main' %}

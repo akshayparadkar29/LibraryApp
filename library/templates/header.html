@@ -7,166 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <!--Google Fonts Links-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!--Google Fonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Protest+Guerrilla&family=Protest+Riot&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Protest+Guerrilla&family=Protest+Riot&family=Protest+Strike&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Protest+Guerrilla&family=Protest+Riot&family=Protest+Strike&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Londrina+Sketch&family=Protest+Guerrilla&family=Protest+Riot&family=Protest+Strike&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Londrina+Sketch&family=Protest+Guerrilla&family=Protest+Riot&family=Protest+Strike&family=Rubik+Marker+Hatch&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Edu+NSW+ACT+Foundation:wght@600&family=Londrina+Sketch&family=Protest+Guerrilla&family=Protest+Riot&family=Protest+Strike&family=Rubik+Marker+Hatch&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Edu+NSW+ACT+Foundation:wght@600&family=Londrina+Sketch&family=Protest+Guerrilla&family=Protest+Revolution&family=Protest+Riot&family=Protest+Strike&family=Rubik+Marker+Hatch&display=swap" rel="stylesheet">
-    <!--CSS Styles-->
-    <style>
-        .formheading{ max-width: 510px; margin: auto; text-shadow: 2px 2px 5px slategrey;
-            font-family: 'Protest Strike', sans-serif; text-decoration: underline; text-decoration-style: wavy;
-        }
-        .bookform, .booklist{ margin: auto; font-size: x-large; box-shadow: 6px 6px 5px slategrey; border-radius: 6px;
-        }
-        nav, .dropdown-menu{ border-radius: 10px; box-shadow: 4px 4px 5px slategrey; font-family: 'Protest Riot', sans-serif;
-        }
-        th{ text-shadow: 2px 2px 4px slategray; font-family: Georgia, 'Times New Roman', Times, serif; text-align: center;
-        }
-        input, .regbookinput, select{ width:300px; margin: auto; border-color: black; box-shadow: 4px 4px 5px slategrey;
-            border-radius: 8px;
-        }
-        label{font-family: 'Protest Guerrilla', sans-serif; margin-top: 10px;
-        }
-        td, .bookshelfbtn{font-family: 'Edu NSW ACT Foundation', cursive; text-align: center;
-        }
-        .buybtn{font-family: 'Protest Riot', sans-serif; width: 50px; height: 40px; transition: width 1s, height 1s;
-        transition-timing-function: ease;  
-        }
-        .buybtn:hover{width: 55px; height: 45px;
-        }
-        .borrowedbtn{font-family: 'Protest Riot', sans-serif; width: 90px; height: 40px;
-        }
-        .borrowbtn{font-family: 'Protest Riot', sans-serif; width: 75px; height: 40px; transition: width 1s, height 1s;
-        transition-timing-function: ease;
-        }
-        .borrowbtn:hover{ width: 80px; height: 45px;
-        }
-        .atc{font-family: 'Protest Riot', sans-serif;width: 125px; height: 40px; transition: width 1s, height 1s; 
-        transition-timing-function: ease;
-        }
-        .atc:hover{width: 130px; height: 45px;
-        }
-        .removefromcartbtn{font-family: 'Protest Riot', sans-serif;width: 150px; height: 40px; transition: width 1s, height 1s; 
-        transition-timing-function: ease;
-        }
-        .removefromcartbtn:hover{width: 155px; height: 45px;
-        }
-        .purchasedbtn{font-family: 'Protest Riot', sans-serif;width: 150px; height: 40px;
-        }
-        .unavailablebtn{font-family: 'Protest Riot', sans-serif;width: 150px; height: 40px;
-        }
-        .bookshelfbtn{float: right; box-shadow: 4px 4px 5px slategrey;
-        }
-        .accountlogo{position: relative; width:41px; height: 40px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .accountlogo:hover{width: 80px; height: 60px;
-        }
-        .accountimg{width: 40px; height: 40px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .accountlogo:hover .accountimg{width: 70px; height: 70px;
-        }     
-        .accountimg:hover{width: 80px; height: 60px;
-        }
-        .accountpic:hover .dropdown-menu{display: block; position: absolute; text-align: center;
-          top: 50px;
-        }
-        .errordiv{font-family: 'Protest Guerrilla', sans-serif;font-size: x-large; text-align: center;
-        }
-        .udashdiv{text-align: center;
-        }
-        .regbtn{float: left;
-        }
-        .userloginbtn{box-shadow: 4px 4px 5px slategrey;
-        }
-        .modal-title{text-shadow: 2px 2px 5px slategrey; font-family: 'Protest Strike', sans-serif;
-          font-size: x-large;
-        }
-        .newuser{font-family: 'Protest Guerrilla', sans-serif; text-decoration: none;
-        }
-        .bookshelfbutton{font-family: 'Protest Revolution', sans-serif; box-shadow: 4px 4px 5px slategrey;
-        }
-        .tablebtns{float: right;
-        }
-        .home{width: 56px; height: 43px; transition: width 1s, height 1s; 
-          transition-timing-function: ease; margin-left: 10px; 
-        }
-        .home:hover{width: 61px; height: 48px; 
-        }
-        .homebtn{ width: 52px; height: 39px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .home:hover .homebtn{width: 57px; height: 44px; 
-        }
-        .logout, .login{width: 65px; height: 40px; transition: width 1s, height 1s; 
-          transition-timing-function: ease; margin-left: 5px;
-        }
-        .logout:hover{width: 76px; height: 48px; 
-        }
-        .logoutbtn{ width: 52px; height: 39px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .logout:hover .logoutbtn{width: 75px; height: 50px; 
-
-        }
-        .bookreg{width: 115px; height: 43px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .bookreg:hover{width: 126px; height: 48px; 
-        }
-        .bookregbtn{width: 113px; height: 40px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .bookreg:hover .bookregbtn{width: 125px; height: 50px; 
-        }
-        .cart{width: 55px; height: 43px; transition: width 1s, height 1s; 
-          transition-timing-function: ease; 
-        }
-        .cart:hover{width: 71px; height: 48px; 
-        }
-        .cartbtn{width: 55px; height: 43px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .cart:hover .cartbtn{width: 70px; height: 50px; 
-        }
-        .dash{width: 90px; height: 43px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .dash:hover{width: 95px; height: 48px; 
-        }
-        .dashbtn{width: 90px; height: 43px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .dash:hover .dashbtn{width: 100px; height: 50px; 
-        }
-        .loginbtn{width: 60px; height: 43px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .loginbtn:hover{width: 65px; height: 48px;
-        }
-        .userregbtn{width: 120px; height: 43px; transition: width 1s, height 1s; 
-          transition-timing-function: ease;
-        }
-        .userregbtn:hover{width: 125px;height: 48px;
-        }
-        .filter-div{ max-width: 950px;
-        }
-    </style>
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Calistoga&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Calistoga&family=Protest+Strike&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bungee+Inline&family=Calistoga&family=Protest+Strike&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bungee+Inline&family=Calistoga&family=Protest+Strike&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bungee+Inline&family=Calistoga&family=Doppio+One&family=Protest+Strike&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bungee+Inline&family=Calistoga&family=Doppio+One&family=Marcellus+SC&family=Protest+Strike&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
+  </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid navdiv">
         <div class="row">
             <!--Navigation Bar-->
-            <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+            <nav class="navbar navbar-expand-md sticky-top">
                 <div class="container-fluid">
                   <!--hoverable division-->
                     <div class="accountpic"> 
@@ -176,8 +45,9 @@
                         {% if request.user.userimage %}
                           <!--'userimage' is modal
                           'image' is field in 'userimage' modal
-                          'url' is the media url fro settings.py-->
-                          <img src="{{request.user.userimage.image.url}}" alt="Avatar Logo"  class="rounded accountimg"> 
+                          'url' is the media url from settings.py-->
+                        <a class="navbar-brand" href="/">
+                          <img src="{{request.user.userimage.image.url}}" alt="Avatar Logo" width="40px"  class="rounded"> 
                         </a>
                         <!--if user account image doesn't exist-->
                         {% else %}
@@ -193,10 +63,12 @@
                         <img src="{% static 'images/user.jpg' %}" alt="Avatar Logo" style="width:40px;" class="rounded-pill"> 
                       </a>
                       {% endif %}
-                      {% if request.user.is_authenticated %}
+                      {% if user.is_authenticated %}
                       <ul class="dropdown-menu">
-                        <a class="dropdown-item btn btn-secondary" href="/profile-image"><li>Update Profile Picture</li></a>
-                        <a class="dropdown-item" href="/update-profile"><li>Update Profile</li></a>
+                        <a class="dropdown-item btn btn-secondary updateprofilepiclink" href="/profile-image"><li>Update Profile Picture</li></a>
+                        <a class="dropdown-item btn btn-secondary updateprofilelink" href="/update-profile"><li>Update Profile</li></a>
+                        <a class="dropdown-item btn btn-secondary logoutbtn" href="/user-logout"><li>Logout</li></a>
+                        <a class="dropdown-item btn btn-secondary cartbtn" href="/my-cart"><li>Cart</li></a>
                       </ul>
                       {% endif %}
                     </div>
@@ -212,14 +84,8 @@
                       <li class="nav-item home">
                         <a class="nav-link btn btn-secondary homebtn" href="/">Home</a>
                       </li>
-                      <li class="nav-item logout">
-                        <a class="nav-link btn btn-secondary logoutbtn" href="/user-logout">Logout</a>
-                      </li>
                       <li class="nav-item bookreg">
                         <a class="nav-link btn btn-secondary bookregbtn" href="/register-book">Book-Register</a>
-                      </li>
-                      <li class="nav-item cart">
-                        <a class="nav-link btn btn-secondary cartbtn" href="/my-cart">Cart</a>
                       </li>
                       <li class="nav-item dash">
                         <a href="/user-dashboard" class="nav-link btn btn-secondary dashbtn">Dashboard</a>
@@ -242,4 +108,11 @@
                   </div>
                 </div>
               </nav>
-          
+        </div>
+        <div class="row">
+          <header class='libraryheading'>
+            <h1 class="libraryname">Book Haven</h1>
+          </header>
+        </div>
+    </div>
+    

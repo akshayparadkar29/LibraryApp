@@ -1,34 +1,32 @@
 {% extends 'master.html' %}
 
 {% block 'main' %}
-<div style="text-align: center;">
-
-    <h1 class="mt-5 mb-3 formheading">
-        NETBANKING LOGIN
-    </h1>
-
-    <div>
+<div class="container-fluid netbankinglogindiv">
+    <div class="row">
+        <h1 class="mt-5 mb-3 formheading">NETBANKING LOGIN</h1>
+    </div>
+    <div class="row errmsg">
         {% if err %}
-        <div class="col-md-12 text-danger errordiv">
-            {{err}}
-        </div>
+        <span>{{err}}</span>
         {% endif %}
     </div>
-
-    <form action="/transaction-details-2" method="post" class="bookform mt-5 col-md-5">
-        {% csrf_token %}
-        {% for fields in form %}
-        <div>
-            {{fields.label_tag}}
-        </div>
-        <div>
-            {{fields}}
-        </div>
-        {% endfor %}
-        <input type="submit" value="Login" class="btn btn-primary mb-3 mt-3 col-md-2 bookshelfbutton">
-        <a href="/netbanking-register-form" class="btn btn-primary mt-3 mb-3 col-md-3 userloginbtn bookshelfbutton">Create Account</a>
-    </form>
-
+    <div class="row">
+        <form action="/transaction-details-2" method="post" class="mt-3 col-md-5 netbankingloginform">
+            {% csrf_token %}
+            {% for fields in form %}
+            <div class="container formlabel">
+                {{fields.label_tag}}
+            </div>
+            <div class="container">
+                {{fields}}
+            </div>
+            {% endfor %}
+            <div class="container formbtns">
+                <input type="submit" value="Login" class="btn btn-primary mb-3 mt-3">
+                <a href="/netbanking-register-form" class="btn btn-primary mt-3 mb-3">Create Account</a>
+            </div>     
+        </form>
+    </div>
 </div>
 
 

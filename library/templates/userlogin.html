@@ -2,38 +2,35 @@
 
 {% block 'main' %}
 
-<div style="text-align: center;">
-
-    <h1 class="mt-5 mb-3 formheading">
-        USER LOGIN
-    </h1>
-    <hr>
-
-    {% if err %}
-    <div class="col-md-12 text-danger errordiv">
-        {{err}}
+<div class="container-fluid userlogindiv">
+    <div class="row">
+        <h1 class="mt-5 mb-3 formheading">
+            USER LOGIN
+        </h1>
     </div>
-    {% endif %}
-
-    <form action="user-login" method="post" class="col-md-5 mb-5 bookform mt-5">
-
-        {% csrf_token %}
-    
-        {% for fields in data %}
-        <div>
-
-            {{fields.label_tag}}
-        </div>
-        <div>
-            {{fields}}
-        </div>
-        {{fields.error}}
-        
-        {% endfor %}
-
-        <input type="submit" class="btn btn-primary mt-3 mb-3 col-md-2 bookshelfbutton" value="Login">
-        <a href="register-user" class="btn btn-primary mt-3 mb-3 col-md-3 userloginbtn bookshelfbutton">Create Account</a>
-    </form>
+    <div class="row errmsg">
+        {% if err %}   
+        <span>{{err}}</span>
+        {% endif %}
+    </div>
+    <div class="row">
+        <form action="user-login" method="post" class="mb-5 mt-3 userloginform">
+            {% csrf_token %}
+            {% for fields in data %}
+            <div class="container">
+                {{fields.label_tag}}
+            </div>
+            <div class="container">
+                {{fields}}
+            </div>
+            {{fields.error}}
+            {% endfor %}
+            <div class="container formbtns">
+                <input type="submit" value="Login" class="btn btn-primary mt-3 mb-3" >
+                <a href="register-user" class="btn btn-primary mt-3 mb-3">Create Account</a>  
+            </div>        
+        </form>
+    </div>
 </div>
 
 {% endblock 'main' %}

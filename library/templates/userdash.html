@@ -2,60 +2,59 @@
 
 {% block 'main' %}
 
-<div class="col-md-12 udashdiv">
-
-    <h1 class="mt-5 formheading">
-        MY BOOKS
-    </h1>
-
-    <hr>
-
-    {% if err %}
-    <div class="col-md-12 text-danger formheading">
-        {{err}}
+<div class="container-fluid dashboard-div">
+    <div class="row">
+        <h1 class="mt-5 formheading">
+            MY BOOKS
+        </h1>
     </div>
-    {% endif %}
-
-    <div class="container col-md-8 mt-5" style="overflow-x: auto;margin: auto;">
-        <table class="table table-hover table-striped table-responsive-lg mt-5 mb-3 table-light booklist">
-            <tr class="table-secondary">
-                <th scope="col" style="padding: 20px;">Title</th>
-                <th scope="col" style="padding: 20px;">Author</th>
-                <th scope="col" style="padding: 20px;">Small-Description</th> 
-                <th scope="col" class="table-dark"></th>
-            </tr>
-            {% for records in data %}
-                <!--on dashboard only show books which are not added to cart-->
-                {% if records.cart == 0 %}
-                <tr>
-                    <td class="table-info">{{records.title}}</td>
-                    <td class="table-info">{{records.author}}</td>
-                    <td class="table-info">{{records.sdesc}}</td>
-                    <!--if books are borrowed-->
-                    {% if records.borrow == 1 %}
-                    <td class="btn-group">
-                        <a href="book-return/{{records.id}}" class="btn btn-info borrowbtn">Return</a>
-                        <a href="/book-buy/{{records.id}}/{{user.id}}" class="btn btn-success buybtn">Buy</a>
-                        <a href="/add-to-cart/{{records.id}}/{{user.id}}" class="btn btn-warning borrowbtn atc">Add To Cart</a>
-                    </td>   
-                    <!--if books are purchased-->
-                    {% elif records.purchase == 1 %}
-                    <td>
-                        <a href="#" class="btn btn-secondary purchasedbtn disabled">Purchased</a>
-                    </td>
-                    {% endif %}
+    <div class="row errmsg">
+        {% if err %}
+        <span> {{err}}</span>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="container col-md-11 mt-5" style="overflow-x: auto;margin: auto;">
+            <table class="table table-hover table-striped table-responsive-lg mt-5 mb-3 table-light booklist">
+                <tr class="table-secondary">
+                    <th scope="col" style="padding: 20px;">Title</th>
+                    <th scope="col" style="padding: 20px;">Author</th>
+                    <th scope="col" style="padding: 20px;">Small-Description</th> 
+                    <th scope="col" class="table-dark col-md-3"></th>
                 </tr>
+                {% for records in data %}
+                    <!--on dashboard only show books which are not added to cart-->
+                    {% if records.cart == 0 %}
+                    <tr>
+                        <td class="table-info">{{records.title}}</td>
+                        <td class="table-info">{{records.author}}</td>
+                        <td class="table-info">{{records.sdesc}}</td>
+                        <!--if books are borrowed-->
+                        {% if records.borrow == 1 %}
+                        <td>
+                            <a href="book-return/{{records.id}}" class="btn btn-info borrowbtn">Return</a>
+                            <a href="/book-buy/{{records.id}}/{{user.id}}" class="btn btn-success buybtn">Buy</a>
+                            <a href="/add-to-cart/{{records.id}}" class="btn btn-warning borrowbtn atc">Add To Cart</a>
+                        </td>   
+                        <!--if books are purchased-->
+                        {% elif records.purchase == 1 %}
+                        <td>
+                            <a href="#" class="btn btn-secondary purchasedbtn disabled">Purchased</a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+            <span class="tablebtns"> 
+                {% if record_count > 1 %}
+                <a href="/books-to-cart" class="btn btn-primary addtocartallbtn">Add To Cart (All Books)</a>
+                <a href="/return-all-books" class="btn btn-primary returnallbtn">Return All Books</a>     
                 {% endif %}
-            {% endfor %}
-        </table>
-        <span class="btn-group tablebtns"> 
-            {% if record_count > 1 %}
-            <a href="/books-to-cart" class="btn btn-primary bookshelfbtn bookshelfbutton">Add To Cart (All Books)</a>
-            <a href="/return-all-books" class="btn btn-primary bookshelfbtn bookshelfbutton">Return All Books</a>     
-            {% endif %}
-            <a href="/" class="btn btn-primary bookshelfbtn bookshelfbutton">Book Shelf -></a>     
-        </span>     
-    </div>
+                <a href="/" class="btn btn-primary bookshelfbtn bookshelfbutton">Book Shelf -></a>     
+            </span>     
+        </div>
+    </div>    
 </div>
 
 {% endblock 'main' %}

@@ -5,7 +5,7 @@ from libapp.models import Book,UserImage,UserPaymentDetails
 from django import forms
 
 # creating form fields based on auth_user table
-# UserForm is user-defined
+# class UserForm is user-defined
 # UserCreation form contains 3 rows -> Username, Password, Conf.password
 class UserForm(UserCreationForm):
     class Meta:
@@ -27,15 +27,9 @@ class BookForm(forms.Form):
         small_description = forms.CharField(max_length=1000)
         price = forms.CharField(max_length=5)
 
-# payment method choices
-Choices = (
-     ('1','Debit Card'),
-     ('2','NetBanking'),
-     ('3','Upi')
-)
 # payment method form
 class PaymentOptionsForm(forms.Form):
-    payment_methods = forms.ChoiceField(choices=Choices)
+    payment_methods = forms.ChoiceField(choices=(('1','Debit Card'),('2','NetBanking'),('3','Upi')))
 
 class DebitCardForm(forms.ModelForm):
     class Meta:

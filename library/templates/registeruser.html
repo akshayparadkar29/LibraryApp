@@ -2,38 +2,34 @@
 
 {% block 'main' %}
 
-<div style="text-align: center;">
-
-    <h1 class="mt-5 mb-3 formheading">
-        REGISTER USER
-    </h1>
-
-    <hr>
-
-    <div>
+<div class="container-fluid userregdiv">
+    <div class="row">
+        <h1 class="mt-5 mb-3 formheading">REGISTER USER</h1>
+    </div>
+    <div class="row errmsg">
         {% if err %}
-        <div class="col-md-12 text-danger errordiv">
-            {{err}}
-        </div>
+        <span>{{err}}</span>
         {% endif %}
     </div>
-
-    <form action="register-user" method="post" class="col-md-5 mb-5 bookform mt-5">
-
-        {% csrf_token %}
+    <div class="row">
+        <form action="register-user" method="post" class="mb-5 mt-3 userregform">
+            {% csrf_token %}
+            {% for fields in data %}
+            <div class="container formlabel">
+                <!--label_tag is used to get form label-->
+                {{fields.label_tag}}
+            </div>
+            <div class="container">
+                {{fields}}
+            </div>
+            {% endfor %}
+            <div class="container formbtns">
+                <input type="submit" class="btn btn-primary mt-3 mb-3" value="Register">
+                <a href="user-login" class="btn btn-primary mt-3 mb-3">Already a user ?</a>
+            </div>
+        </form>
+    </div>
     
-        {% for fields in data %}
-        <div>
-            {{fields.label_tag}}
-        </div>
-        <div style="margin-bottom: 5px;">
-            {{fields}}
-        </div>
-        {% endfor %}
-
-        <input type="submit" class="btn btn-primary mt-3 mb-3 col-md-2 bookshelfbutton" value="Register">
-        <a href="user-login" class="btn btn-primary mt-3 mb-3 col-md-4 userloginbtn bookshelfbutton">Already a user ?</a>
-    </form>
 </div>
 
 

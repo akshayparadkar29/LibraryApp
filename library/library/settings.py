@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -133,7 +132,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
 # media files handling setting for ImageField in models
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR/'static/images'
+MEDIA_ROOT = BASE_DIR/'static/images' # library/static/images
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

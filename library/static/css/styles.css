@@ -1,0 +1,44 @@
+.navdiv{background-image: url('../images/backgroundimg2.png');background-size: cover;min-height: 400px;}
+.navbar-toggler{border:1px solid black}
+.accountpic:hover .dropdown-menu{display: block;}
+.libraryheading{max-width: 260px;margin: auto;font-family: 'Calistoga';text-align: center;
+    text-shadow: 1px 2px 2px white;}
+.formheading{max-width: 600px;margin: auto;font-family: 'Calistoga';text-align: center;
+    text-shadow: 1px 2px 2px rgba(86, 195, 238, 0.747);text-decoration:underline;text-decoration-style: dashed;}
+.updateprofilepiclink,.updateprofilelink,.homebtn,.logoutbtn,.bookregbtn,.cartbtn,.dashbtn,.loginbtn,.userregbtn{
+    font-family: 'Protest Strike';font-size: large;}
+.homebtn:hover{color: white;background-color: grey;text-shadow: 1px 2px 2px black;}
+.loginbtn:hover{color: white;background-color: grey;text-shadow: 1px 2px 2px black;}
+.logoutbtn:hover{color: white;background-color: grey;text-shadow: 1px 2px 2px black;}
+.bookregbtn:hover{color: white;background-color: grey;text-shadow: 1px 2px 2px black;}
+.userregbtn:hover{color: white;background-color: grey;text-shadow: 1px 2px 2px black;}
+.cartbtn:hover{color: white;background-color: grey;text-shadow: 1px 2px 2px black;}
+.dashbtn:hover{color: white;background-color: grey;text-shadow: 1px 2px 2px black;}
+.updateprofilepiclink:hover{color: white;background-color: grey;text-shadow: 1px 2px 2px black;}
+.updateprofilelink:hover{color: white;background-color: grey;text-shadow: 1px 2px 2px black;}
+th{font-family: 'Calistoga';font-size: large;text-align: center;}
+td{font-family: 'Sniglet';font-size: large;text-shadow: 1px 1px 1px lightslategray;text-align: center;}
+.buybtn,.borrowbtn,.addtocartbtn,.purchasedbtn,.unavailablebtn{box-shadow: 1px 1px 1px grey;}
+.borrowallbtn,.addtocartallbtn,.dashboardbtn,.returnallbtn,.bookshelfbutton{font-family: 'Doppio One';}
+.tablebtns{float: right;}
+.filterdiv{max-width: 1000px;margin: auto;text-align: center;}
+.filtercat{font-family: 'Marcellus SC';}
+.filterby{font-family: 'Sniglet';text-decoration: none;color: black;}
+.errmsg{text-align: center;color: red;}
+.bookregform,.profpicupdateform{max-width:260px;margin: auto;}
+.profileupdateform,.paymentmethodform,.debitcarddetailsform,.netbankingloginform,
+.netbankingregform,.netbankingtransactiondetailsform,.upitransacdetailsform,.userloginform,
+.userregform{max-width:220px;margin: auto;}
+.bookshelfbtn{max-width: 130px;}
+.formlabel{font-family: 'Bebas Neue';font-size: large;}
+.bookregformdiv,.dashboard-div,.homediv,.profilepicupdateform,.profileupdateformdiv,
+.cartdiv,.dropdown-menu,.paymentmethodiv,.debitcarddetailsdiv,.netbankinglogindiv,
+.netbankingregform2,.netbankingtransactiondetailsdiv,.upitransacdetailsdiv,.userlogindiv,
+.userregdiv{background-color: rgb(245, 218, 182);}
+.libraryname:hover{background-color: white;border-radius: 5px;text-shadow: 1px 1px 2px darkgray;}
+.libraryname{margin: 100px 0px 0px 0px;}
+.profilepicformbtn{width: 250px;}
+.formbtns{width: 250px;}
+.modal-header{background-color: lightgrey;font-family: 'Calistoga';}
+.modal-body{background-color: rgb(156, 223, 253);}
+.newuser,.olduser{font-family: 'Sniglet';text-decoration: none;color:black}

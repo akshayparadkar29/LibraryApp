@@ -1,8 +1,7 @@
 from typing import Any
 
-
 class LibraryMiddleware:
-    # in this function we can perfom initialization task
+    # in this function we can perform middleware initialization task
     def __init__(self,get_respone):
         print("Middleware Initialized !!")
         self.get_response = get_respone
