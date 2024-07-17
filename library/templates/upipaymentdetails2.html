@@ -22,8 +22,8 @@
             </div>
             {% endfor %}
             <div class="container">
-                <input type="submit" value="Proceed" class="btn btn-primary mb-3 mt-3">
-                <input type="reset" value="Clear" class="btn btn-primary mb-3 mt-3">
+                <input type="submit" value="Proceed" class="btn btn-primary mt-3">
+                <input type="reset" value="Clear" class="btn btn-primary mt-3">
             </div>
         </form>
     </div>
@@ -34,7 +34,7 @@
             BOOK DETAILS
         </h1>
 
-        <table class="table table-hover table-striped table-responsive-lg mt-5 mb-3 table-light booklist">
+        <table class="table table-hover table-striped table-responsive-lg mt-5 mb-5 table-light booklist">
             <tr class="table-secondary" scope="row">
                 <th scope="col" style="padding: 20px;">Title</th>
                 <th scope="col" style="padding: 20px;">Author</th>
@@ -49,8 +49,8 @@
                 <td class="table-info">{{records.price}}</td>
             </tr>
             {% endfor %}
+        </table>
     </div>
-
 </div>
 
 {% endblock 'main' %}

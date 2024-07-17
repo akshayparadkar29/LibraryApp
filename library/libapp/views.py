@@ -156,11 +156,11 @@ class StaticUrls(View):
         # BUY BOOKS CART (GET)
         elif request.path == '/buy-all-books':
             form = PaymentOptionsForm()
-            record = Book.objects.filter(purchase=0)
+            record = Book.objects.filter(cart=1)
             content = {'form':form,'data':record}
             return render(request,'paymentmethods.html',content)
         
-        # ASCENDING FILTER
+        # ASCENDING FILTER (GET)
         elif request.path == '/ascending':
             # to show prices in price filter
             records = Book.objects.all().order_by('price')
@@ -169,7 +169,7 @@ class StaticUrls(View):
             content = {'data':record,'data2':records}
             return render(request,'home.html',content)
         
-        # DESCENDING FILTER
+        # DESCENDING FILTER (GET)
         elif request.path == '/descending':
             # to show prices in price filter
             records = Book.objects.all().order_by('-price')
@@ -178,6 +178,7 @@ class StaticUrls(View):
             content = {'data':record,'data2':records}
             return render(request,'home.html',content)
         
+        # UPDATE PROFILE DETAILS (GET)
         elif request.path == '/update-profile':
             form = UserProfileUpdateForm(initial={'first_name':request.user.first_name,'last_name':request.user.last_name,
                                               'username':request.user.username,'email':request.user.email})
@@ -235,24 +236,31 @@ class StaticUrls(View):
         # USER LOGIN (POST)
         elif request.path == '/user-login':
             try:
+                print("LOGIN POST REQUEST")
                 # AuthenticationForm() provides username & password fields
                 # AuthenticationForm() takes 2 parameters  
                 # request = request_object & variable = request.POST
                 form = AuthenticationForm(request=request,data=request.POST)
+                print("FORM DATA RECEIVED -> ", form)
                 # If Form Valid
                 if form.is_valid():
+                    print("FORM VALIDATED")
                     # retrieving username & password for double confirmation
                     # AuthenticationForm() use cleaned_data[] to retrieve form input values
                     # 'username' & 'password' are dictionary keys to which form input values are linked
                     user_name = form.cleaned_data['username']
                     user_pass = form.cleaned_data['password']
+                    print("USERNAME & PASSWORD RECEIVED -> ",user_name, user_pass)
                     # double checking in auth_user table whether username & password exists
                     # authenticate() will check the auth_user table by default
                     user_exist = authenticate(username=user_name,password=user_pass)
+                    print("USER AUTHENTICATED -> ",user_exist)
                     # if exist
                     if user_exist:
+                        print("USER EXIST!!")
                         # create session
                         login(request,user_exist)
+                        print("SESSION CREATED")
                         return redirect('/user-dashboard')
                 else:
                     # If Form Invalid
@@ -264,7 +272,7 @@ class StaticUrls(View):
             
         # PROFILE PICTURE UPDATE (POST)
         elif request.path == '/profile-image':
-            try:
+            # try:
                 # extracting imageform data
                 form = ImageForm(request.POST, request.FILES)
                 if form.is_valid():
@@ -273,38 +281,46 @@ class StaticUrls(View):
                     # if user updates same profile picture 
                     # checking if image exist
                     record = UserImage.objects.filter(image=image).exists()
-                    # if same profile picture exist
-                    if record:
-                        return redirect('/')     
-                    else: 
-                        # when same user updates a different account picture 
-                        # since we have defined OneToOne relationship in UserImage model
-                        # we have to first delete existing account image of current user
+                    # if no user image exist in database (initially)
+                    if not record:
                         user = request.user.id
-                        # checking if image exist
-                        exist = UserImage.objects.filter(user_id=user).exists()
-                        # .values('image') -> return queryset of all images from UserImage model -> <QuerySet [{'image': '20220623_160508.jpg'}]>
-                        # [0] -> returns first object from queryset -> {'image': '20220623_160508.jpg'}
-                        # .get('image') -> returns the name of the image with extension -> '20220623_160508.jpg'
-                        exist = UserImage.objects.filter(user_id=user).values('image')[0].get('image')
-                        # deleting existing account image from images folder
-                        os.remove(os.path.join(settings.MEDIA_ROOT,exist))
-                        # delete existed account image of current user from database
-                        UserImage.objects.filter(user_id=user).delete() 
-                        # then update new account image of current user
-                        record = UserImage.objects.get_or_create(image=image,user_id=user)
-                        return redirect('/')  
+                        user_exist = UserImage.objects.filter(user_id=user).exists() 
+                        if not user_exist: 
+                            # then update new account image of current user
+                            record = UserImage.objects.create(image=image,user_id=user)
+                            return redirect('/') 
+                        # if same user updates different profile picture
+                        elif user_exist:
+                            # when same user updates a different account picture 
+                            # since we have defined OneToOne relationship in UserImage model
+                            # we have to first delete existing account image of current user
+                            user = request.user.id
+                            # checking if image exist
+                            exist = UserImage.objects.filter(user_id=user).exists()
+                            # .values('image') -> return queryset of all images from UserImage model -> <QuerySet [{'image': '20220623_160508.jpg'}]>
+                            # [0] -> returns first object from queryset -> {'image': '20220623_160508.jpg'}
+                            # .get('image') -> returns the name of the image with extension -> '20220623_160508.jpg'
+                            exist = UserImage.objects.filter(user_id=user).values('image')[0].get('image')
+                            # deleting existing account image from images folder
+                            os.remove(os.path.join(settings.MEDIA_ROOT,exist))
+                            # delete existed account image of current user from database
+                            UserImage.objects.filter(user_id=user).delete()
+                            # then update new account image of current user
+                            record = UserImage.objects.create(image=image,user_id=user)
+                            return redirect('/') 
+                    # if same profile picture exist
+                    elif record:
+                        return redirect('/')             
                 else:
                     # if form is invalid throw error
                     form = ImageForm()
                     content = {'form':form,'err':'Invalid File !'}
                     return render(request,'profileimageform.html',content)
-            except Exception as e:
-                return HttpResponse("Error Occurred: {}".format(str(e),status=500))
+            # except Exception as e:
+            #     return HttpResponse("Error Occurred: {}".format(str(e),status=500))
             
         # NET BANKING LOGIN DATA VALIDATION (POST)
         elif request.path == '/transaction-details':
-            if request.method == 'POST':
                 try:
                     form = NetBankingLoginForm(request.POST)
                     if form.is_valid():
@@ -323,7 +339,7 @@ class StaticUrls(View):
                             # in this case form label name is `amount` hence key is also `amount`  
                             form2 = NetBankingTransactionDetails(initial={'amount':record2[0].price})
                             content = {'form':form2,'data':record2}
-                            return render(request,'netbanktransactiondetails2.html',content)
+                            return render(request,'netbanktransactiondetails.html',content)
                         else:
                             form = NetBankingLoginForm()
                             content = {'form':form,'err':'Invalid Username OR Password'}
@@ -358,26 +374,21 @@ class StaticUrls(View):
                     return HttpResponse("Error Occurred: {}".format(str(e),status=500))
             # Net-Banking Payment Processing
             elif payment_method == '2':
-                try:
                     # these session methods gets the session key & then deletes the key from session
-                    uid = request.session['user_id']
                     record_id = request.session['record_id']
                     # saving payment method details 
                     record2 = Book.objects.filter(id=record_id)
-                    record2.update(purchase=1,uid=uid,borrow=0)
+                    record2.update(purchase=1,uid=request.user.id,borrow=0)
                     return redirect("/")
-                except Exception as e:
-                    return HttpResponse("Error Occurred: {}".format(str(e),status=500))
+              
             # Upi Payment Processing
             elif payment_method == '3':
                 try:
-                    # these session methods gets the session key 
-                    uid = request.session['user_id']
                     # retrieving Book record based on record_id
                     record_id = request.session['record_id']
                     # updating book as purchased
                     record2 = Book.objects.filter(id=record_id)
-                    record2.update(purchase=1,uid=uid,borrow=0)
+                    record2.update(purchase=1,uid=request.user.id,borrow=0)
                     return redirect("/")
                 except Exception as e:
                     return HttpResponse("Error Occurred: {}".format(str(e),status=500))
@@ -427,8 +438,8 @@ class StaticUrls(View):
                 # saving payment method number in session for further manipulation
                 request.session['payment_method'] = payment_method
                 # retrieving price column from book model
-                record = Book.objects.filter(purchase=0).values_list('price')
-                record2 = Book.objects.filter(purchase=0)
+                record = Book.objects.filter(purchase=0,cart=1).values_list('price')
+                record2 = Book.objects.filter(purchase=0,cart=1)
                 #total amount of all books
                 amount = 0
                 # list of prices
@@ -493,11 +504,9 @@ class StaticUrls(View):
                     # saving payment method details 
                     # get_or_create() method will create object if does not exist
                     # when purchase is done by same debit card this method won't create same entry again
-                    records = UserPaymentDetails.objects.get_or_create(name=name,debit_card_num=card_num,cvv=cvv,user_id=request.user.id)
-                    print("Record Count-> ",len(records))
-                    if len(records) > 1:
-                        # updating book as purchased
-                        records_2 = Book.objects.all().update(purchase=1,uid=request.user.id,borrow=0,cart=0)
+                    records = UserPaymentDetails.objects.get_or_create(name=name,debit_card_num=card_num,cvv=cvv,user_id=request.user.id)      
+                    # updating book as purchased
+                    records_2 = Book.objects.filter(borrow=0,cart=1).update(purchase=1,uid=request.user.id,borrow=0,cart=0)
                     return redirect('/')
                 except Exception as e:
                     return HttpResponse("Error Occurred: {}".format(str(e),status=500))
@@ -505,7 +514,7 @@ class StaticUrls(View):
             elif payment_method == '2':
                 try:
                     # updating book as purchased
-                    record2 = Book.objects.all().update(purchase=1,uid=request.user.id,borrow=0,cart=0)
+                    record2 = Book.objects.filter(borrow=0,cart=1).update(purchase=1,uid=request.user.id,borrow=0,cart=0)
                     return redirect("/")
                 except Exception as e:
                     return HttpResponse("Error Occurred: {}".format(str(e),status=500))
@@ -513,7 +522,7 @@ class StaticUrls(View):
             elif payment_method == '3':
                 try:
                     # updating book as purchased
-                    record2 = Book.objects.all().update(purchase=1,uid=request.user.id,borrow=0,cart=0)
+                    record2 = Book.objects.filter(borrow=0,cart=1).update(purchase=1,uid=request.user.id,borrow=0,cart=0)
                     return redirect("/")
                 except Exception as e:
                     return HttpResponse("Error Occurred: {}".format(str(e),status=500)) 
@@ -533,8 +542,8 @@ class StaticUrls(View):
                     record = NetBankingDetails.objects.filter(username=uname,password=upass).exists()
                     if record:
                     # retrieving price column from book model
-                        record = Book.objects.all().values_list('price')
-                        record2 = Book.objects.all() 
+                        record = Book.objects.filter(purchase=0).values_list('price')
+                        record2 = Book.objects.filter(purchase=0)
                         #total amount of all books
                         amount = 0
                         # list of prices

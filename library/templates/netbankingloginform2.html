@@ -11,7 +11,7 @@
         {% endif %}
     </div>
     <div class="row">
-        <form action="/transaction-details-2" method="post" class="mt-3 col-md-5 netbankingloginform">
+        <form action="/transaction-details-2" method="post" class="mt-3 mb-5 col-md-5 netbankingloginform">
             {% csrf_token %}
             {% for fields in form %}
             <div class="container formlabel">
@@ -22,12 +22,11 @@
             </div>
             {% endfor %}
             <div class="container formbtns">
-                <input type="submit" value="Login" class="btn btn-primary mb-3 mt-3">
-                <a href="/netbanking-register-form" class="btn btn-primary mt-3 mb-3">Create Account</a>
+                <input type="submit" value="Login" class="btn btn-primary mt-3">
+                <a href="/netbanking-register-form" class="btn btn-primary mt-3">Create Account</a>
             </div>     
         </form>
     </div>
 </div>
-
 
 {% endblock 'main' %}

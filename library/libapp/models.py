@@ -14,7 +14,7 @@ class Book(models.Model):
     
 class UserImage(models.Model):
     image  = models.ImageField()
-    user = models.OneToOneField(User, on_delete=models.CASCADE,null=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
 
 class UserPaymentDetails(models.Model):
     name = models.CharField(max_length=50,verbose_name='Name On Debit Card')

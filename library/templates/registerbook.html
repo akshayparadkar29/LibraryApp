@@ -14,7 +14,6 @@
     <div class="row">
         <form action="register-book" method="post" class="mb-5 mt-3 bookregform">
             {% csrf_token %}
-    
             {% for fields in form %}
             <div class="container formlabel">
                 {{fields.label_tag}}
@@ -24,8 +23,8 @@
             </div>
             {% endfor %}
             <div class="container">
-                <input type="submit" class="btn btn-primary mt-3 mb-3" value="Register">
-                <input type="reset" class="btn btn-primary mt-3 mb-3" value="Clear">
+                <input type="submit" class="btn btn-primary mt-3" value="Register">
+                <input type="reset" class="btn btn-primary mt-3" value="Clear">
             </div>
         </form>
     </div>
